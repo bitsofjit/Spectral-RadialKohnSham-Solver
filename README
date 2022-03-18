@@ -1,0 +1,95 @@
+                     *****************************
+                         +-+-+ spectatom +-+-+
+                     *****************************
+
+Authors:
+-------
+Subhajit Banerjee & N. Sukumar
+University of California, Davis, USA
+
+Summary:
+--------
+A MATLAB based single atom Radial Kohn-Sham Equation solver.
+
+Acknowledgement:
+----------------
+The authors acknowledge helpful discussions with Ondrej Certik 
+(LANL: http://www.ondrejcertik.com/). 
+"spectatom" is based on Ondrej Certik's spectral FEM code "featom." 
+
+Alongside, suggestions and pointers from Amrtya S. Banerjee 
+(LBNL: https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/postdoctoral-researchers/amartya-banerjee/) 
+is also acknowledged.
+
+Description:
+------------
+The main program script "spectatom.m" can be run for any input 
+atomic number (1-92) which is represented as the variable Zion.
+
+***************************************************************************
+
+                        ===================
+                        **** IMPORTANT ****
+                        =================== 
+Before executing any of the scripts from wither /src or /test directory, 
+run the spectatomstartup.m function on the home directory. This sets up 
+the PATH correctly so that any of the routines in /src can be called from 
+any directory not included in /src.  
+
+***************************************************************************
+After setting up the mesh (options: uniform/logarithmic/exponential) 
+and quadrature (options: Gauss-Legendre/ Gauss-Legendre-Lobatto)
+"spectatom" calls the function "radialdft.m." radialdft.m initializes 
+charge density (as per Thomas-Fermi approximation) and pass on the same, 
+alongside other problem-set up variables to the function "KSscfiteration.m."
+
+KSscfiteration.m performs the SCF iterations. To this end, at every step of 
+the iteration, it first solves the radial-Poisson problem 
+(functions: "solveradialpoisson.m" and "radialpoissonelemeqns.m") for a 
+given input density and subsequently the solution (Hartree potential) gets 
+used to compute Hamiltonian matrix. The functions: 
+"radialschroedingerelemeqns.m" and "solveradialschroed.m" constructs and 
+solves the radial Kohn-Sham eigenvalue problem (which in essence is same 
+as radial Schrodinger equation) respectively. 
+
+Only those eigenpairs which are needed to construct the output density 
+are computed in solveradialschroed.m. Lastly, total energy is computed 
+by the function "computetotalenergy.m" and convergence is accessed based 
+on the difference betweek input and output density. If not achieved then 
+the SCF iteration continues. 
+
+
+Test: (Incomplete, 07/25/17)
+----------------------------
+1. Execute the "spectatom.m" file. Changing the variable Zion changes 
+the atomic number of the system (element). 
+The electronic configuration of the corresponding element can also be 
+found in the function "getatomicstate.m." 
+
+The main output of the code is the ground state energy. For benchmarking 
+purpose please refer to the NIST database: 
+https://www.nist.gov/pml/data/atomic-total-energies-and-eigenvalues-html
+where a list of gound state energies (among other details) for all 
+atoms is maintained. 
+
+***************************************************************************
+An offline version of this data is also kept in the directory: ./NISTdata
+***************************************************************************
+
+FUTURE WORK:
+------------
+1. Add Pulay mixing to accelerate SCF convergence
+2. Patch lobpcg.m routine (@/src/eigensolver) to improve the eigensolver 
+   performance at higher DOFs
+
+Reference:
+----------
+1. Ondrej Certik, et al., "dftatom: A robust and general Schr�dinger and Dirac solver for atomic structure calculations"
+   Computer Physics Communications; Volume 184, Issue 7, July 2013, Pages 1777-1791
+   DOI: https://doi.org/10.1016/j.cpc.2013.02.014
+
+2. Chao Yang, et al., "KSSOLV a MATLAB toolbox for solving the Kohn-Sham equations"
+   ACM Transactions on Mathematical Software (TOMS) TOMS Homepage archive
+   Volume 36 Issue 2, March 2009, Article No. 10 
+   DOI: http://doi.acm.org/10.1145/1499096.1499099
+

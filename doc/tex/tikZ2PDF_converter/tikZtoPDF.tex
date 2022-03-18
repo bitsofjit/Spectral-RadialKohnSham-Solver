@@ -1,0 +1,197 @@
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{xcolor}
+\input{macros} % file with short cuts, new commands etc.
+
+\usetikzlibrary{external}
+
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error 
+-interaction=batchmode -jobname "\image" "\texsource" &&
+pdftops -eps "\image".pdf}}
+\tikzexternalize
+
+%
+%*******************************************************************************************
+% 				RUN as: latex --shell-escape tikZtoPDF.tex 
+%*******************************************************************************************
+%
+\begin{document}
+%\begin{figure}[H] 
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[width=9.0cm,
+%			xlabel={Number of DOF},
+%			ylabel={$E_0$ [Ha]},			
+%			grid=both,
+%			tick align=outside,
+%			tickpos=left,
+%			minor y tick style={very thick},
+%        		minor x tick style={very thick},
+%			legend entries={$\texttt{numel = 10}$, $\texttt{numel = 20}$, $\texttt{numel =}40^\ast$, $(E_0)_{\textrm{exact}}$ },
+%			legend pos=north east,
+%]
+%			\addplot[thick,color=blue,solid,mark=triangle,mark options={solid,fill=gray},mark size=2pt] table {pconv_nelem10.dat};
+%			\addplot[thick,color=black,solid,mark=o,mark options={solid,fill=gray},mark size=3pt] table {pconv_nelem20.dat};
+%			\addplot[thick,color=red,solid,mark=square,mark options={solid,fill=gray},mark size=3pt] table {pconv_nelem40.dat};
+%			\addplot[thick,color=green,solid] table {pconv_exact.dat};			
+%		\end{axis}
+%	\end{tikzpicture}
+%\end{figure}
+\begin{figure}[H] 
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[width=9.0cm,
+			xlabel={Number of DOF},
+			ylabel={$E_0$ [Ha]},			
+			grid=both,
+			tick align=outside,
+			tickpos=left,
+			minor y tick style={very thick},
+        		minor x tick style={very thick},
+			legend entries={$p = 2$, $p = 4$, $p = 8$, $(E_0)_{\textrm{exact}}$ },
+			legend pos=north east,
+]
+			\addplot[thick,color=blue,solid,mark=triangle,mark options={solid,fill=gray},mark size=2pt] table {hconv_p2.dat};
+			\addplot[thick,color=black,solid,mark=o,mark options={solid,fill=gray},mark size=3pt] table {hconv_p4.dat};
+			\addplot[thick,color=red,solid,mark=square,mark options={solid,fill=gray},mark size=3pt] table {hconv_p8.dat};
+			\addplot[thick,color=green,solid] table {hconv_exact.dat};
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+
+
+
+
+
+
+%\begin{tikzpicture}[scale=.35]\footnotesize
+%	\begin{scope}->;
+%	\draw[red,thick] (-4,4) -- (-4,-4) -- (4,-4);
+%	\draw[red,thin,dashed] (4,-4) -- (4,4);
+%	\draw[red,thin,dashed] (4,4) -- (-4,4);
+%	\draw (-4,-4) rectangle (4,4); % node[pos=.5] {$\mathlarger{\mathlarger{\Omega = (0, 1)^2}}$};
+%	\draw[red,thick] (4,-4) arc (0:90:7.95);
+%	 \path
+%	  (-4, -4) node[below left] {$(0,0)$}
+%         (-4, -4) node[above right] {$1$}
+%         (4, -4) node[below right] {$(1,0)$}
+%         (4, -4) node[above left] {$2$}
+%         (-4, 4) node[above left] {$(0,1)$}
+%         (-4, 4) node[below right] {$3$}
+%         (4, 4) node[above right] {$(1,1)$}
+%         (4, 4) node[below left] {$4$}
+%	  (2, 2) node[] {$(x, y)$}
+%	  (0.2,-2) node[]{$\mathlarger{\mathlarger{\Omega = (0, 1)^2}}$}
+%	;
+%	  \draw [color=black, fill=cyan] (-4.0, -4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (4.0, -4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (4.0, 4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (-4.0, 4.0) circle (.3);
+%	  \draw [color=black, fill=red] (2.0, 2.5) circle (.15);
+%	  \end{scope}		
+%\end{tikzpicture}
+%
+%\begin{tikzpicture}[scale=.35]\footnotesize
+%	 \begin{scope}->;
+%	 \draw[] (-6,1) -- (6,1);
+%	 \path
+%	  (-6, 1) node[below] {$x_1=0$}
+%	  (-6, 1) node[above] {$1$}
+%	
+%	  (0, 1) node[below] {$x_2=1/2$}
+%	  (0, 1) node[above] {$2$}
+%	
+%         (6, 1) node[below] {$x_3=1$}
+%         (6, 1) node[above] {$3$}
+%	  ;
+%
+%	   \draw [color=black, fill=cyan] (-6, 1) circle (.2);
+%	   \draw [color=black, fill=cyan] (0, 1) circle (.2);	
+%	   \draw [color=black, fill=cyan] (6, 1.0) circle (.2);
+%	   \draw[->] (6.35,1) -- (9,1) node[below] {$x$};
+%\end{scope}		
+%\end{tikzpicture}
+%\begin{tikzpicture}[scale=.35]\footnotesize
+%	\begin{scope}->;
+%	\draw (-4,-4) rectangle (4,4); % node[pos=.5] {$\mathlarger{\mathlarger{\Omega = (0, 1)^2}}$};
+%	 \path
+%	  (-4, -4) node[below left] {$(0,0)$}
+%         (-4, -4) node[above right] {$1$}
+%         (4, -4) node[below right] {$(1,0)$}
+%         (4, -4) node[above left] {$2$}
+%         (4, 4) node[above right] {$(1,1)$}
+%         (4, 4) node[below left] {$3$}
+%         (-4, 4) node[above left] {$(0,1)$}
+%         (-4, 4) node[below right] {$4$}
+%	  (2, 2) node[] {$(x, y)$}
+%	  (0.2,-2) node[]{$\mathlarger{\mathlarger{\Omega = (0, 1)^2}}$}
+%	;
+%	  \draw [color=black, fill=cyan] (-4.0, -4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (4.0, -4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (4.0, 4.0) circle (.3);
+%	  \draw [color=black, fill=cyan] (-4.0, 4.0) circle (.3);
+%	  \draw [color=black, fill=red] (2.0, 2.5) circle (.15);
+%	  \end{scope}		
+%\end{tikzpicture}
+%
+% ***************************************************************************************************
+%************************************** Figure for Problem 3 *************************************
+% ***************************************************************************************************
+%\begin{tikzpicture}[scale=2]\footnotesize
+%	\coordinate (N1) at (0.0,0.0);
+%	\coordinate (N2) at (4.0,0.0);
+%	\coordinate (N3) at (2.0,2.0);
+%	\coordinate (N4) at (0.0,2.0);
+%	\coordinate (N5) at (2.0,0.0);
+%	\coordinate (N6) at (3.5,1.0);
+%	\coordinate (N7) at (1.0,2.0);
+%	\coordinate (N8) at (0.0,1.0);
+%	\coordinate (N9) at (1.5,1.0);
+%	%
+%	\node[below = 0.1cm] at (N1) {$1$};
+%	\node[below = 0.1cm] at (N2) {$2$};
+%	\node[above = 0.1cm] at (N3) {$3$};
+%	\node[above = 0.1cm] at (N4) {$4$};
+%	\node[below = 0.1cm] at (N5) {$5$};
+%	\node[left = 0.1cm] at (N6) {$6$};
+%	\node[above = 0.1cm] at (N7) {$7$};
+%	\node[left = 0.1cm] at (N8) {$8$};
+%	\node[right = 0.1cm] at (N9) {$9$};
+%	%
+%	\draw [color=black, fill=black] (N1) circle (.05);
+%	\draw [color=black, fill=black] (N2) circle (.05);
+%	\draw [color=black, fill=black] (N3) circle (.05);
+%	\draw [color=black, fill=black] (N4) circle (.05);
+%	\draw [color=black, fill=black] (N5) circle (.05);
+%	\draw [color=black, fill=black] (N6) circle (.05);
+%	\draw [color=black, fill=black] (N7) circle (.05);
+%	\draw [color=black, fill=black] (N8) circle (.05);
+%	\draw [color=black, fill=black] (N9) circle (.05);
+%	\draw[thick, draw=black] (N2) .. controls (3.64,1.0) .. (N3);
+%	\draw[thick, draw=black, - open triangle 45] (4.25,0.0) .. controls (3.8,1.00) .. (2.25,2.0);
+%	\node at (3.9,1.0) {$\mathlarger{\mathlarger{\vm{t}_0}}$};
+%	\draw [thick, draw=black]  (N1) -- (N5) -- (N2);
+%	\draw [thick, draw=black]  (N3) -- (N7) -- (N4) -- (N8) -- (N1);
+%\end{tikzpicture}
+%
+%
+% ***************************************************************************************************
+%************************************** Figure for Problem 4 *************************************
+% ***************************************************************************************************
+%
+%\begin{tikzpicture}[scale=2]\footnotesize
+%	\coordinate (V1) at (1.0,2.0);
+%	\coordinate (V2) at (5.0,5.0);
+%	\coordinate (V3) at (3.0,8.0);
+%	\draw [thick, draw=black]  (V1) -- (V2) -- (V3) -- (V1);
+%	\node[below = 0.05cm] at (V1) {$\mathlarger{\mathlarger{1 \, (x_1, y_1)}}$};
+%	\node[below right = 0.05cm] at (V2) {$\mathlarger{\mathlarger{2 \, (x_2, y_2)}}$};
+%	\node[above = 0.05cm] at (V3) {$\mathlarger{\mathlarger{3 \, (x_3, y_3)}}$};
+%	\node at (3.0, 5.0) {$\mathlarger{\mathlarger{\Omega_e}}$};
+%	%
+%	\draw [color=black, fill=black] (V1) circle (.05);
+%	\draw [color=black, fill=black] (V2) circle (.05);
+%	\draw [color=black, fill=black] (V3) circle (.05);
+%	\draw[thick, draw=black, - triangle 45] (0.0,0.0) -- (2.0,0.0) node[below] {$\mathlarger{\mathlarger{x}}$};
+%	\draw[thick, draw=black, - triangle 45] (0.0,0.0) -- (0.0,2.0) node[left] {$\mathlarger{\mathlarger{y}}$};
+%\end{tikzpicture}
+\end{document} 
